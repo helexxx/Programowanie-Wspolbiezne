@@ -12,6 +12,7 @@ namespace Logic
         public abstract Ball CreateBall(int x, int y, int radius);
         public abstract Box CreateBox(int height, int width, int balls_number, int ball_radius);
 
+        public abstract void Simulation(Box box);
 
         public class LogicLayer : LogicAPI
         {
@@ -28,6 +29,11 @@ namespace Logic
             public override Box CreateBox(int height, int width, int balls_number, int ball_radius)
             {
                 return new Box(height, width, balls_number, ball_radius);
+            }
+
+            public override void Simulation(Box box)
+            {
+                box.MoveBalls();
             }
 
             private readonly DataAPI dataLayer1;

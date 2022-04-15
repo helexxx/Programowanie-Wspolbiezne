@@ -29,6 +29,17 @@ namespace Logic
             }
         }
 
+        public void MoveBalls()
+        {
+            while (true)
+            {
+                foreach (Ball ball in balls_list)
+                {
+                    ball.ChangeBallPosition(box_width, box_height);
+                }
+            }
+        }
+
         public int Width { get => box_width; }
         public int Height { get => box_height; }
 
