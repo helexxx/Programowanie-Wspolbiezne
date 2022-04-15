@@ -4,8 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\Etap1\Logic\Logic.csproj" />
-	</ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logic\Logic.csproj" />
+  </ItemGroup>
 
 </Project>
