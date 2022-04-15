@@ -1,8 +1,9 @@
 ﻿using System;
 
-public class Class1
+namespace ViewModel
 {
-	public Class1()
-	{
-	}
+    public class Class1
+    {
+
+    }
 }
