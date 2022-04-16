@@ -21,8 +21,8 @@ namespace Logic
         {
             Random random = new Random();
 
-            this.move_x = random.NextDouble() * (1 - 0.1) + 0.1;
-            this.move_y = random.NextDouble() * (1 - 0.1) + 0.1;
+            this.move_x = random.NextDouble() * (1 - 0.1) + 0.1;  // nie wiem jak zrobić losowa wartosc od -1 do 1
+            this.move_y = random.NextDouble() * (1 - 0.1) + 0.1;  // w takim wypadku ruszaja sie tylko w jedna strone
 
             double newX = pos_x + move_x;
             double newY = pos_y + move_y;
