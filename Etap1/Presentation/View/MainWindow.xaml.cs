@@ -25,6 +25,9 @@ namespace View
             InitializeComponent();
         }
 
+        private void ChangedTextBox(object sender, TextChangedEventArgs e)
+        {
 
+        }
     }
 }
