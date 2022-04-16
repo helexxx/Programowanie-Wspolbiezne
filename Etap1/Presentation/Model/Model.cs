@@ -6,6 +6,7 @@
         {
             Logic.LogicAPI logicLayer = Logic.LogicAPI.CreateAPI(Data.DataAPI.CreateAPI());
             Logic.Box box = logicLayer.CreateBox(100, 100, 3, 3);
+            box.MoveBalls();
 
             for (int i = 0; i < box.Balls.Count; i++)
             {
