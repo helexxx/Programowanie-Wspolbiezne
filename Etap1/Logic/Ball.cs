@@ -1,14 +1,16 @@
-﻿namespace Logic
+﻿using System;
+
+namespace Logic
 {
     public class Ball
     {
-        private int pos_x;
-        private int pos_y;
+        private double pos_x;
+        private double pos_y;
         private int rad_r;
-        private int move_x;
-        private int move_y;
+        private double move_x;
+        private double move_y;
 
-        internal Ball(int x, int y, int radius)
+        internal Ball(double x, double y, int radius)
         {
             pos_x = x;
             pos_y = y;
@@ -17,6 +19,11 @@
 
         public void ChangeBallPosition(int maxBorderX,int maxBorderY)
         {
+            Random random = new Random();
+
+            this.move_x = random.NextDouble() * (1 - 0.1) + 0.1;
+            this.move_y = random.NextDouble() * (1 - 0.1) + 0.1;
+
             double newX = pos_x + move_x;
             double newY = pos_y + move_y;
 
@@ -35,13 +42,13 @@
             pos_y = pos_y + move_y;
         }
 
-        public int get_x
+        public double get_x
         {
             get => pos_x;
             set => pos_x = value;
         }
 
-        public int get_y
+        public double get_y
         {
             get => pos_y;
             set => pos_y = value;

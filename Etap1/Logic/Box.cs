@@ -23,8 +23,8 @@ namespace Logic
             for (int i = 0; i < number; i++)
             {
 
-                int x = r.Next(0, box_width - radius);
-                int y = r.Next(0, box_height - radius);
+                double x = r.Next(0, box_width - radius);
+                double y = r.Next(0, box_height - radius);
                 balls_list.Add(new Ball(x, y, radius));
             }
         }

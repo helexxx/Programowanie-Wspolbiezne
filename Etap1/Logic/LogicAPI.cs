@@ -9,7 +9,7 @@ namespace Logic
             return new LogicLayer(dataAPI);
         }
 
-        public abstract Ball CreateBall(int x, int y, int radius);
+        public abstract Ball CreateBall(double x, double y, int radius);
         public abstract Box CreateBox(int height, int width, int balls_number, int ball_radius);
 
         public abstract void Simulation(Box box);
@@ -21,7 +21,7 @@ namespace Logic
                 dataLayer1 = dataAPI;
             }
 
-            public override Ball CreateBall(int x, int y, int radius)
+            public override Ball CreateBall(double x, double y, int radius)
             {
                 return new Ball(x, y, radius);
             }
