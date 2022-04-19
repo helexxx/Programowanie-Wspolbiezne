@@ -35,7 +35,7 @@ namespace Logic
             {
                 foreach (Ball ball in balls_list)
                 {
-                    ball.ChangeBallPosition(box_width, box_height);
+                    ball.MoveBall(box_width, box_height);
                 }
             }
         }

@@ -7,8 +7,8 @@ namespace Logic
         private double pos_x;
         private double pos_y;
         private int rad_r;
-        private double move_x;
-        private double move_y;
+        private double dest_x;
+        private double dest_y;
 
         internal Ball(double x, double y, int radius)
         {
@@ -17,29 +17,27 @@ namespace Logic
             rad_r = radius;
         }
 
-        public void ChangeBallPosition(int maxBorderX,int maxBorderY)
+        public void MoveBall(int maxBorderX,int maxBorderY)
         {
             Random random = new Random();
 
-            this.move_x = random.NextDouble() * (1 - 0.1) + 0.1;  // nie wiem jak zrobić losowa wartosc od -1 do 1
-            this.move_y = random.NextDouble() * (1 - 0.1) + 0.1;  // w takim wypadku ruszaja sie tylko w jedna strone
+            this.dest_x = random.Next(0, maxBorderX - this.rad_r);
+            this.dest_y = random.Next(0, maxBorderY - this.rad_r);
 
-            double newX = pos_x + move_x;
-            double newY = pos_y + move_y;
+            double deltaX = dest_x - pos_x;
+            double deltaY = dest_y - pos_y;
 
+            double angle = Math.Atan2(deltaY, deltaX);
 
-            if (newX > maxBorderX || newX < 0)
+            // double speed = ?;  how to calculate speed of ball? Is loop speed is enought??
+
+            while(pos_x != dest_x && pos_y != dest_y)
             {
-                move_x = -move_x;
+                pos_x += Math.Cos(angle);    // * speed
+                pos_y += Math.Sin(angle);    // * speed
             }
 
-            if (newY > maxBorderY || newY < 0)
-            {
-                move_y = -move_y;
-            }
-
-            pos_x = pos_x + move_x;
-            pos_y = pos_y + move_y;
+            
         }
 
         public double get_x
