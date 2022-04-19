@@ -29,12 +29,18 @@ namespace Logic
 
             double angle = Math.Atan2(deltaY, deltaX);
 
-            // double speed = ?;  how to calculate speed of ball? Is loop speed is enought??
+            // double speed = ?;  how to calculate speed of ball? Is loop speed is enough??
 
             while(pos_x != dest_x && pos_y != dest_y)
             {
-                pos_x += Math.Cos(angle);    // * speed
-                pos_y += Math.Sin(angle);    // * speed
+                if (pos_x != dest_x)
+                {
+                    pos_x += Math.Cos(angle);    // * speed
+                }
+                if (pos_y != dest_y)
+                {
+                    pos_y += Math.Sin(angle);    // * speed
+                }
             }
 
             
