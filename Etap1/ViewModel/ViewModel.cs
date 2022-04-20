@@ -1,17 +1,14 @@
-﻿using Logic;
-using Model;
-using System.Collections.ObjectModel;
+﻿using Model;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
-using ViewModel;
 
-namespace Presentation.ViewModel
+namespace ViewModel
 {
-    public class ViewModelLayer : INotifyPropertyChanged
+    public class ViewModel : INotifyPropertyChanged
     {
 
-        public ViewModelLayer()
+        public ViewModel()
         {
             MyModel = ModelAbstractApi.CreateAPI();
             Start = new RelayCommand(() => start());
