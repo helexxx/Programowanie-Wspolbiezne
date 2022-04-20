@@ -1,0 +1,11 @@
+{
+  "profiles": {
+    "Logic": {
+      "commandName": "Project"
+    },
+    "Profil 1": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Users\\helex\\Desktop\\Uczelnia 4sem\\współbieżne\\Programowanie-Wspolbiezne\\Etap1\\View\\MainWindow.xaml.cs"
+    }
+  }
+}
