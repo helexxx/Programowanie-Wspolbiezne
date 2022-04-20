@@ -1,14 +1,15 @@
 ﻿using System;
+using System.ComponentModel;
 
 namespace Logic
 {
     public class Ball
     {
-        private double pos_x;
-        private double pos_y;
-        private int rad_r;
-        private double dest_x;
-        private double dest_y;
+        public double pos_x;
+        public double pos_y;
+        public int rad_r;
+        public double dest_x;
+        public double dest_y;
 
         internal Ball(double x, double y, int radius)
         {
@@ -76,6 +77,6 @@ namespace Logic
             }
         }
 
-
+        public Action<object, PropertyChangedEventArgs> PropertyChanged { get; set; }
     }
 }

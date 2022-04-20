@@ -1,48 +1,44 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace ViewModel
 {
-    public class ViewBase : INotifyPropertyChanged
-    {
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-
     public class RelayCommand : ICommand
     {
-       public event EventHandler CanExecuteChanged;
 
-       private readonly Action move_Execute;
-       private readonly Func<bool> move_CanExecute;
 
-        public RelayCommand(Func<bool> canExecute, Action execute)
+        public RelayCommand(Action execute) : this(execute, null) { }
+
+        public RelayCommand(Action execute, Func<bool> canExecute)
         {
-            move_CanExecute = canExecute;
-            move_Execute = execute;
+            this.m_Execute = execute ?? throw new ArgumentNullException(nameof(execute));
+            this.m_CanExecute = canExecute;
         }
-
         public bool CanExecute(object parameter)
         {
-            if(parameter == null)
-            { 
-                return true; 
-            }
-           return this.move_CanExecute();
+            if (this.m_CanExecute == null)
+                return true;
+            if (parameter == null)
+                return this.m_CanExecute();
+            return this.m_CanExecute();
         }
 
-        public void Execute(object parameter)
+        public virtual void Execute(object parameter)
         {
-            this.move_Execute();
+            this.m_Execute();
         }
+
+
+        public event EventHandler CanExecuteChanged;
+
+        internal void RaiseCanExecuteChanged()
+        {
+            this.CanExecuteChanged?.Invoke(this, EventArgs.Empty);
+        }
+
+
+        private readonly Action m_Execute;
+        private readonly Func<bool> m_CanExecute;
+
     }
 }
