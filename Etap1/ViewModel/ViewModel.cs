@@ -7,7 +7,7 @@ namespace ViewModel
 {
     public class ViewModel : INotifyPropertyChanged
     {
-
+        private ModelApi modelApi = new Model.ModelApi();
         public ViewModel()
         {
             MyModel = ModelAbstractApi.CreateAPI();
@@ -60,6 +60,7 @@ namespace ViewModel
 
         public void start()
         {
+            modelApi.start();
         }
 
         public void stop()
