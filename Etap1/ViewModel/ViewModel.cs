@@ -1,5 +1,6 @@
 ﻿using Model;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
@@ -9,25 +10,56 @@ namespace ViewModel
     public class ViewModel : ViewModelBase
     {
 
-        private int b_Radious;
-        private int _width;
-        private int _height;
-
-        private ModelAbstractApi modelApi = ModelAbstractApi.CreateApi();
+        public ViewModel() : this(ModelAbstractApi.CreateApi())
+        {
+        }
 
         public ViewModel(ModelAbstractApi modelAbstractApi)
         {
-            modelApi = modelAbstractApi;
-            b_Radious = modelApi.Radius;
-            _height = modelApi.Height;
-            _width = modelApi.Width;
-            ButtonClick = new RelayCommand(() => ClickHandler());
+            ModelLayer = modelAbstractApi;
+            Radious = ModelLayer.Radius;
+            ButtomClick = new RelayCommand(() => ClickHandler());
         }
-        public ICommand ButtonClick { get; set; }
+
+        public IList<object> CirclesCollection
+        {
+            get
+            {
+                return b_CirclesCollection;
+            }
+            set
+            {
+                if (value.Equals(b_CirclesCollection))
+                    return;
+                RaisePropertyChanged("CirclesCollection");
+            }
+        }
+
+        public int Radious
+        {
+            get
+            {
+                return b_Radious;
+            }
+            set
+            {
+                if (value.Equals(b_Radious))
+                    return;
+                b_Radious = value;
+                RaisePropertyChanged("Radious");
+            }
+        }
+
+        public ICommand ButtomClick { get; set; }
 
         private void ClickHandler()
         {
-            modelApi.BeginMove();
+            // do something usefull
         }
+
+        private IList<object> b_CirclesCollection;
+        private int b_Radious;
+        private ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi();
+
     }
 }
