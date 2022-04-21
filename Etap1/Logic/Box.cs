@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Logic
 {
@@ -7,16 +8,15 @@ namespace Logic
     {
         private readonly int box_width;
         private readonly int box_height;
-        private readonly List<Ball> balls_list = new List<Ball>();
+        private ObservableCollection<Ball> balls_list = new ObservableCollection<Ball>();
 
-        public Box(int width, int height, int balls_number, int ball_radius)
+        public Box()
         {
-            box_width = width;
-            box_height = height;
-            generateBalls(balls_number, ball_radius);
+            box_width = 700;
+            box_height = 400;
         }
 
-        private void generateBalls(int number, int radius)
+        public void generateBalls(int number, int radius)
         {
             Random r = new Random();
 
@@ -40,9 +40,19 @@ namespace Logic
             }
         }
 
+        public void ShowBalls()
+        {
+            foreach (var ball in balls_list)
+            {
+                Console.Write(" " + ball.get_radius);
+                Console.WriteLine(ball.get_x);
+                Console.WriteLine(ball.get_y);
+            }
+        }
+
         public int Width { get => box_width; }
         public int Height { get => box_height; }
 
-        public List<Ball> Balls { get => balls_list; }
+        public ObservableCollection<Ball> Balls { get => balls_list; }
     }
 }

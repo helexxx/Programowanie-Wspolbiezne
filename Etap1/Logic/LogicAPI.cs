@@ -10,7 +10,7 @@ namespace Logic
         }
 
         public abstract Ball CreateBall(double x, double y, int radius);
-        public abstract Box CreateBox(int height, int width, int balls_number, int ball_radius);
+        public abstract Box CreateBox();
 
         public abstract void Simulation(Box box);
 
@@ -26,9 +26,9 @@ namespace Logic
                 return new Ball(x, y, radius);
             }
 
-            public override Box CreateBox(int height, int width, int balls_number, int ball_radius)
+            public override Box CreateBox()
             {
-                return new Box(height, width, balls_number, ball_radius);
+                return new Box();
             }
 
             public override void Simulation(Box box)

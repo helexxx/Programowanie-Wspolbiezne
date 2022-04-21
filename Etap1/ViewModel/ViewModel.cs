@@ -1,83 +1,33 @@
 ﻿using Model;
+using System.Collections;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace ViewModel
 {
-    public class ViewModel : INotifyPropertyChanged
+    public class ViewModel : ViewModelBase
     {
-        private ModelApi modelApi = new Model.ModelApi();
-        public ViewModel()
+
+        private int b_Radious;
+        private int _width;
+        private int _height;
+
+        private ModelAbstractApi modelApi = ModelAbstractApi.CreateApi();
+
+        public ViewModel(ModelAbstractApi modelAbstractApi)
         {
-            MyModel = ModelAbstractApi.CreateAPI();
-            Start = new RelayCommand(() => start());
-            Stop = new RelayCommand(() => stop());
-            balls_number = 5;
-            startButton = "Start";
+            modelApi = modelAbstractApi;
+            b_Radious = modelApi.Radius;
+            _height = modelApi.Height;
+            _width = modelApi.Width;
+            ButtonClick = new RelayCommand(() => ClickHandler());
         }
+        public ICommand ButtonClick { get; set; }
 
-        private ModelAbstractApi MyModel { get; set; }
-
-
-        private int balls_number;
-        private int height = 400;
-        private int width = 600;
-        private string startButton;
-
-        public string StartButton
+        private void ClickHandler()
         {
-            get => startButton;
-            set
-            {
-                startButton = value;
-                RaisePropertyChanged("StartButton");
-            }
-
+            modelApi.BeginMove();
         }
-
-        public int Width
-        {
-            get => width;
-            set => width = value;
-        }
-
-
-        public int Height
-        {
-            get => height;
-            set => height = value;
-        }
-
-        public int NumberOfBalls
-        {
-            get => balls_number;
-            set => balls_number = value;
-        }
-
-        public ICommand Start { get; set; }
-        public ICommand Stop { get; set; }
-
-        public void start()
-        {
-            modelApi.start();
-        }
-
-        public void stop()
-        {
-   
-        }
-
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-
     }
 }
