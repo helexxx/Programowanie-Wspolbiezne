@@ -42,7 +42,8 @@
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
                 Width="70"
-                Height="40" TextChanged="ChangedTextBox" Text="20"/>
+                Text="{Binding Count}"
+                Height="40" TextChanged="ChangedTextBox"/>
 
 
         <Border BorderThickness="1"
@@ -63,8 +64,8 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding x}" />
-                        <Setter Property="Canvas.Top" Value="{Binding y}" />
+                        <Setter Property="Canvas.Left" Value="{Binding PosX}" />
+                        <Setter Property="Canvas.Top" Value="{Binding PosY}" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
@@ -72,8 +73,8 @@
                         <Path Fill="Tomato">
                             <Path.Data>
                                 <EllipseGeometry 
-                                    RadiusX="{Binding radius}" 
-                                    RadiusY="{Binding radius}" />
+                                    RadiusX="{Binding Radius}" 
+                                    RadiusY="{Binding Radius}" />
                             </Path.Data>
                         </Path>
                     </DataTemplate>

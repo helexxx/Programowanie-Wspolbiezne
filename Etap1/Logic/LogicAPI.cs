@@ -1,29 +1,35 @@
-﻿using Data;
+﻿
+using System;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Logic
 {
     public abstract class LogicAPI
     {
-        public static LogicAPI CreateAPI(DataAPI dataAPI)
+        public static LogicAPI CreateAPI()
         {
-            return new LogicLayer(dataAPI);
+            return new LogicLayer();
         }
-
-        public abstract Ball CreateBall(double x, double y, int radius);
+        public abstract void CreateBall(Box box);
         public abstract Box CreateBox();
+        public abstract void StartSimulation(Box box);
 
-        public abstract void Simulation(Box box);
+        public abstract void Update(Box box);
+
+        public abstract void StopSimulation(Box box);
 
         public class LogicLayer : LogicAPI
         {
-            public LogicLayer(DataAPI dataAPI)
-            {
-                dataLayer1 = dataAPI;
-            }
 
-            public override Ball CreateBall(double x, double y, int radius)
+            private CancellationToken _cancelToken;
+            public CancellationToken CancellationToken => _cancelToken;
+            private List<Task> _tasks = new List<Task>();
+           
+            public override void CreateBall(Box box)
             {
-                return new Ball(x, y, radius);
+                box.Balls.Add(new Ball(box));
             }
 
             public override Box CreateBox()
@@ -31,12 +37,43 @@ namespace Logic
                 return new Box();
             }
 
-            public override void Simulation(Box box)
+            public override void StartSimulation(Box box)
             {
-                box.MoveBalls();
+                foreach (Ball ball in box.Balls)
+                {
+                    Task task = Task.Run(() =>
+                    {
+                        Thread.Sleep(1);
+                        while (true)
+                        {
+                            Thread.Sleep(2);
+                            try
+                            {
+                                _cancelToken.ThrowIfCancellationRequested();
+                            }
+                            catch (OperationCanceledException)
+                            {
+                                break;
+                            }
+
+                            ball.MoveBall(box.Width,box.Height);
+                        }
+                    }
+                    );
+                    _tasks.Add(task);
+                }
             }
 
-            private readonly DataAPI dataLayer1;
+            public override void Update(Box box)
+            {
+                throw new System.NotImplementedException();
+            }
+
+            public override void StopSimulation(Box box)
+            {
+                throw new System.NotImplementedException();
+            }
+
         }
 
 

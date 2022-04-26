@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using Logic;
 
 namespace Model
@@ -6,11 +7,12 @@ namespace Model
     public abstract class ModelAbstractApi
     {
             public abstract int Radius { get; }
+            public abstract int Count { get; set; }
 
-            public abstract int Width { get; }
-            public abstract int Height { get; }
+            public abstract ObservableCollection<Ball> Balls { get; }
 
-            public abstract void BeginMove();
+        public abstract void StartSimulation();
+        public abstract void StopSimulation();
 
         public static ModelAbstractApi CreateApi()
             {
@@ -19,16 +21,38 @@ namespace Model
         }
 
     internal class ModelApi : ModelAbstractApi
-    {
-        public override int Radius => 3;
-        public override int Width => Width;
-        public override int Height => Height;
+    { 
+        public override int Radius => 5;
 
-        private Box Box = new Box();
-        public override void BeginMove()
+        public override int Count { get => count; set => count = value; }
+
+        public override ObservableCollection<Ball> Balls
         {
-            Box.generateBalls(5, 3);
-            Box.MoveBalls();
+            get
+            {
+                return box.Balls;
+            }
         }
+
+        public override void StartSimulation()
+        {
+            box.generateBalls(Count, Radius);
+            LogicLayer.StartSimulation(box);
+        }
+
+        public override void StopSimulation()
+        {
+
+        }
+
+        public ModelApi()
+        {
+            LogicLayer = new LogicAPI.LogicLayer();
+            box = LogicLayer.CreateBox();
+        }
+
+        private LogicAPI LogicLayer;
+        private Box box;
+        private int count;
     }
 }

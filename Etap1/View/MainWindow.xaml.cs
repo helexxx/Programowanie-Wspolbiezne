@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MainWindowViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,7 @@ namespace View
         public MainWindow()
         {
             InitializeComponent();
+            this.DataContext = new MainWindowViewModel.MainWindowViewModel();
         }
 
         private void ChangedTextBox(object sender, TextChangedEventArgs e)

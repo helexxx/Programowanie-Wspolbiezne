@@ -12,8 +12,9 @@ namespace Logic
 
         public Box()
         {
-            box_width = 700;
+            box_width = 400;
             box_height = 400;
+            //generateBalls(3, 3);
         }
 
         public void generateBalls(int number, int radius)
@@ -22,7 +23,6 @@ namespace Logic
 
             for (int i = 0; i < number; i++)
             {
-
                 double x = r.Next(0, box_width - radius);
                 double y = r.Next(0, box_height - radius);
                 balls_list.Add(new Ball(x, y, radius));
@@ -44,9 +44,9 @@ namespace Logic
         {
             foreach (var ball in balls_list)
             {
-                Console.Write(" " + ball.get_radius);
-                Console.WriteLine(ball.get_x);
-                Console.WriteLine(ball.get_y);
+                Console.Write(" " + ball.Radius);
+                Console.WriteLine(ball.PosX);
+                Console.WriteLine(ball.PosY);
             }
         }
 
