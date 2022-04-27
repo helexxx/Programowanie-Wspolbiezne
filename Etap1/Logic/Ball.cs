@@ -30,7 +30,7 @@ namespace Logic
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public void MoveBall(int maxBorderX,int maxBorderY)
+        internal void MoveBall(int maxBorderX,int maxBorderY)
         {
             Random random = new Random();
 

@@ -28,22 +28,15 @@
                 Width="70"
                 Height="40"
                 Command="{Binding Stop}"/>
-        <Button Content="RESTART"
-                HorizontalAlignment="Left"
-                Margin="10,130,0,0"
-                VerticalAlignment="Top"
-                Width="70"
-                Height="40"
-                Command="{Binding Restart}"/>
         <TextBox HorizontalAlignment="Left"
-                Margin="10,180,0,0"
+                Margin="10,144,0,0"
                 TextWrapping="Wrap"
                 VerticalAlignment="Top"
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
                 Width="70"
                 Text="{Binding Count}"
-                Height="40" TextChanged="ChangedTextBox"/>
+                Height="40" TextChanged="ChangedTextBox" RenderTransformOrigin="0.7,-0.319"/>
 
 
         <Border BorderThickness="1"

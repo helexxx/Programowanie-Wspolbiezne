@@ -26,28 +26,6 @@ namespace MainWindowViewModel
             Stop = new RelayCommand(() => StopHandler());
         }
 
-        public IList<object> CirclesCollection
-        {
-            get
-            {
-                return b_CirclesCollection;
-            }
-            set
-            {
-                if (value.Equals(b_CirclesCollection))
-                    return;
-                RaisePropertyChanged("CirclesCollection");
-            }
-        }
-
-        public int Radious
-        {
-            get
-            {
-                return ModelLayer.Radius;
-            }
-        }
-
         public int Count
         {
             get
@@ -76,19 +54,18 @@ namespace MainWindowViewModel
 
         private void StartHandler()
         {
-            ModelLayer.StartSimulation();
+            ModelLayer.ModelStartSimulation();
         }
 
         private void StopHandler()
         {
-            ModelLayer.StopSimulation();
+            ModelLayer.ModelStopSimulation();
         }
 
         #endregion public API
 
         #region private
 
-        private IList<object> b_CirclesCollection;
         private ModelAbstractApi ModelLayer = ModelAbstractApi.CreateApi();
 
         #endregion private

@@ -11,8 +11,8 @@ namespace Model
 
             public abstract ObservableCollection<Ball> Balls { get; }
 
-        public abstract void StartSimulation();
-        public abstract void StopSimulation();
+        public abstract void ModelStartSimulation();
+        public abstract void ModelStopSimulation();
 
         public static ModelAbstractApi CreateApi()
             {
@@ -22,7 +22,7 @@ namespace Model
 
     internal class ModelApi : ModelAbstractApi
     { 
-        public override int Radius => 5;
+        public override int Radius => 8;
 
         public override int Count { get => count; set => count = value; }
 
@@ -34,15 +34,15 @@ namespace Model
             }
         }
 
-        public override void StartSimulation()
+        public override void ModelStartSimulation()
         {
-            box.generateBalls(Count, Radius);
+            LogicLayer.CreateBalls(Count, Radius, box);
             LogicLayer.StartSimulation(box);
         }
 
-        public override void StopSimulation()
+        public override void ModelStopSimulation()
         {
-
+            LogicLayer.StopSimulation(box);
         }
 
         public ModelApi()

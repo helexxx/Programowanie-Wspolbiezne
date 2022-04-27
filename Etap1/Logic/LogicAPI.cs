@@ -12,11 +12,10 @@ namespace Logic
         {
             return new LogicLayer();
         }
-        public abstract void CreateBall(Box box);
+
+        public abstract void CreateBalls(int count, int radius, Box box);
         public abstract Box CreateBox();
         public abstract void StartSimulation(Box box);
-
-        public abstract void Update(Box box);
 
         public abstract void StopSimulation(Box box);
 
@@ -26,10 +25,10 @@ namespace Logic
             private CancellationToken _cancelToken;
             public CancellationToken CancellationToken => _cancelToken;
             private List<Task> _tasks = new List<Task>();
-           
-            public override void CreateBall(Box box)
+     
+            public override void CreateBalls(int count, int radius, Box box)
             {
-                box.Balls.Add(new Ball(box));
+                box.generateBalls(count, radius);
             }
 
             public override Box CreateBox()
@@ -55,7 +54,6 @@ namespace Logic
                             {
                                 break;
                             }
-
                             ball.MoveBall(box.Width,box.Height);
                         }
                     }
@@ -64,14 +62,9 @@ namespace Logic
                 }
             }
 
-            public override void Update(Box box)
-            {
-                throw new System.NotImplementedException();
-            }
-
             public override void StopSimulation(Box box)
             {
-                throw new System.NotImplementedException();
+                box.Balls.Clear();
             }
 
         }

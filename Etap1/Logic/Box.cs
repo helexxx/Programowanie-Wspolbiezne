@@ -10,14 +10,13 @@ namespace Logic
         private readonly int box_height;
         private ObservableCollection<Ball> balls_list = new ObservableCollection<Ball>();
 
-        public Box()
+        internal Box()
         {
             box_width = 400;
             box_height = 400;
-            //generateBalls(3, 3);
         }
 
-        public void generateBalls(int number, int radius)
+        internal void generateBalls(int number, int radius)
         {
             Random r = new Random();
 
@@ -29,7 +28,7 @@ namespace Logic
             }
         }
 
-        public void MoveBalls()
+        internal void MoveBalls()
         {
             while (true)
             {
@@ -37,16 +36,6 @@ namespace Logic
                 {
                     ball.MoveBall(box_width, box_height);
                 }
-            }
-        }
-
-        public void ShowBalls()
-        {
-            foreach (var ball in balls_list)
-            {
-                Console.Write(" " + ball.Radius);
-                Console.WriteLine(ball.PosX);
-                Console.WriteLine(ball.PosY);
             }
         }
 
