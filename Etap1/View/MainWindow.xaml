@@ -28,21 +28,15 @@
                 Width="70"
                 Height="40"
                 Command="{Binding Stop}"/>
-        <Button Content="RESTART"
-                HorizontalAlignment="Left"
-                Margin="10,130,0,0"
-                VerticalAlignment="Top"
-                Width="70"
-                Height="40"
-                Command="{Binding Restart}"/>
         <TextBox HorizontalAlignment="Left"
-                Margin="10,180,0,0"
+                Margin="10,144,0,0"
                 TextWrapping="Wrap"
                 VerticalAlignment="Top"
                 VerticalContentAlignment="Center"
                 HorizontalContentAlignment="Center"
                 Width="70"
-                Height="40" TextChanged="ChangedTextBox" Text="20"/>
+                Text="{Binding Count}"
+                Height="40" TextChanged="ChangedTextBox" RenderTransformOrigin="0.7,-0.319"/>
 
 
         <Border BorderThickness="1"
@@ -63,8 +57,8 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemContainerStyle>
                     <Style TargetType="ContentPresenter">
-                        <Setter Property="Canvas.Left" Value="{Binding x}" />
-                        <Setter Property="Canvas.Top" Value="{Binding y}" />
+                        <Setter Property="Canvas.Left" Value="{Binding PosX}" />
+                        <Setter Property="Canvas.Top" Value="{Binding PosY}" />
                     </Style>
                 </ItemsControl.ItemContainerStyle>
                 <ItemsControl.ItemTemplate>
@@ -72,8 +66,8 @@
                         <Path Fill="Tomato">
                             <Path.Data>
                                 <EllipseGeometry 
-                                    RadiusX="{Binding radius}" 
-                                    RadiusY="{Binding radius}" />
+                                    RadiusX="{Binding Radius}" 
+                                    RadiusY="{Binding Radius}" />
                             </Path.Data>
                         </Path>
                     </DataTemplate>

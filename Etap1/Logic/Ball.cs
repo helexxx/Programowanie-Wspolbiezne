@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Logic
 {
-    public class Ball
+    public class Ball : INotifyPropertyChanged
     {
         public double pos_x;
         public double pos_y;
@@ -11,6 +12,15 @@ namespace Logic
         public double dest_x;
         public double dest_y;
 
+       internal Ball(Box box)
+        {
+            Random random = new Random();
+
+            this.rad_r = 3;
+
+            this.pos_x = random.Next(0, box.Width - this.rad_r);
+            this.pos_y = random.Next(0, box.Height - this.rad_r);
+        }
         internal Ball(double x, double y, int radius)
         {
             pos_x = x;
@@ -18,7 +28,9 @@ namespace Logic
             rad_r = radius;
         }
 
-        public void MoveBall(int maxBorderX,int maxBorderY)
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        internal void MoveBall(int maxBorderX,int maxBorderY)
         {
             Random random = new Random();
 
@@ -32,8 +44,6 @@ namespace Logic
 
             // double speed = ?;  how to calculate speed of ball? Is loop speed is enough??
 
-            while(pos_x != dest_x && pos_y != dest_y)
-            {
                 if (pos_x != dest_x)
                 {
                     pos_x += Math.Cos(angle);    // * speed
@@ -42,24 +52,25 @@ namespace Logic
                 {
                     pos_y += Math.Sin(angle);    // * speed
                 }
-            }
+    
+            RaisePropertyChanged(nameof(PosX));
+            RaisePropertyChanged(nameof(PosY));
 
-            
         }
 
-        public double get_x
+        public double PosX
         {
             get => pos_x;
             set => pos_x = value;
         }
 
-        public double get_y
+        public double PosY
         {
             get => pos_y;
             set => pos_y = value;
         }
 
-        public int get_radius
+        public int Radius
         {
             get => rad_r;
             set
@@ -76,7 +87,11 @@ namespace Logic
 
             }
         }
+        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
-        public Action<object, PropertyChangedEventArgs> PropertyChanged { get; set; }
+        //  public Action<object, PropertyChangedEventArgs> PropertyChanged { get; set; }
     }
 }
