@@ -25,6 +25,15 @@ namespace View
         {
             InitializeComponent();
             this.DataContext = new MainWindowViewModel.MainWindowViewModel();
+
+            Task.Run(async () =>
+            {
+                while(true)
+                {
+                    Dispatcher.Invoke(() => itemss.Items.Refresh());
+                    await Task.Delay(20);
+                }
+            });
         }
 
         private void ChangedTextBox(object sender, TextChangedEventArgs e)

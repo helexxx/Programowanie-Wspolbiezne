@@ -40,12 +40,12 @@ namespace Logic
             {
                 foreach (Ball ball in box.Balls)
                 {
-                    Task task = Task.Run(() =>
+                    Task task = Task.Run(async () =>
                     {
-                        Thread.Sleep(1);
-                        while (true)
+                        await Task.Delay(1);
+                        while (ball.Alive)
                         {
-                            Thread.Sleep(2);
+                            await Task.Delay(20);
                             try
                             {
                                 _cancelToken.ThrowIfCancellationRequested();
@@ -54,17 +54,26 @@ namespace Logic
                             {
                                 break;
                             }
-                            ball.MoveBall(box.Width,box.Height);
+                           
+                            ball.MoveBall(box.Width, box.Height);
+                         
                         }
                     }
                     );
                     _tasks.Add(task);
                 }
+               
+                
             }
 
             public override void StopSimulation(Box box)
             {
+                foreach(Ball ball in box.Balls)
+                {
+                    ball.Alive = false;
+                }
                 box.Balls.Clear();
+                _tasks.Clear();
             }
 
         }

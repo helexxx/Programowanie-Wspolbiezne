@@ -11,6 +11,7 @@ namespace Logic
         public int rad_r;
         public double dest_x;
         public double dest_y;
+        private bool alive;
 
        internal Ball(Box box)
         {
@@ -20,12 +21,16 @@ namespace Logic
 
             this.pos_x = random.Next(0, box.Width - this.rad_r);
             this.pos_y = random.Next(0, box.Height - this.rad_r);
+
+            alive = true;
         }
         internal Ball(double x, double y, int radius)
         {
             pos_x = x;
             pos_y = y;
             rad_r = radius;
+
+            alive = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -87,6 +92,9 @@ namespace Logic
 
             }
         }
+
+        public bool Alive { get => alive; set => alive = value; }
+
         protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
         {
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
