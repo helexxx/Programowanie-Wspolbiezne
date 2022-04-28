@@ -9,8 +9,8 @@ namespace Logic
         public double pos_x;
         public double pos_y;
         public int rad_r;
-        public double dest_x;
-        public double dest_y;
+        private double speed_x;
+        private double speed_y;
         private bool alive;
 
        internal Ball(Box box)
@@ -21,6 +21,8 @@ namespace Logic
 
             this.pos_x = random.Next(0, box.Width - this.rad_r);
             this.pos_y = random.Next(0, box.Height - this.rad_r);
+            this.speed_x = (double)6;
+            this.speed_y = (double)6;
 
             alive = true;
         }
@@ -29,6 +31,8 @@ namespace Logic
             pos_x = x;
             pos_y = y;
             rad_r = radius;
+            this.speed_x = (double)4;
+            this.speed_y = (double)4;
 
             alive = true;
         }
@@ -37,30 +41,52 @@ namespace Logic
 
         internal void MoveBall(int maxBorderX,int maxBorderY)
         {
-            Random random = new Random();
+            double tmp_x, tmp_y;
 
-            this.dest_x = random.Next(0, maxBorderX - this.rad_r);
-            this.dest_y = random.Next(0, maxBorderY - this.rad_r);
+            tmp_x = PosX + XSpeed;
+            tmp_y = PosY + YSpeed;
+            this.CheckX(tmp_x);
+            this.CheckY(tmp_y);
 
-            double deltaX = dest_x - pos_x;
-            double deltaY = dest_y - pos_y;
-
-            double angle = Math.Atan2(deltaY, deltaX);
-
-            // double speed = ?;  how to calculate speed of ball? Is loop speed is enough??
-
-                if (pos_x != dest_x)
-                {
-                    pos_x += Math.Cos(angle);    // * speed
-                }
-                if (pos_y != dest_y)
-                {
-                    pos_y += Math.Sin(angle);    // * speed
-                }
-    
             RaisePropertyChanged(nameof(PosX));
             RaisePropertyChanged(nameof(PosY));
 
+        }
+
+        public void CheckX(double tmp_x)
+        {
+            if (tmp_x >= 400 - Radius * 2)
+            {
+                PosX = 400 - Radius * 2;
+                XSpeed *= -1;
+            }
+            else if (tmp_x <= 0)
+            {
+                PosX = 0;
+                XSpeed *= -1;
+            }
+            else
+            {
+                PosX = PosX + XSpeed;
+            }
+        }
+
+        public void CheckY(double tmp_y)
+        {
+            if (tmp_y + Radius * 2 >= 400)
+            {
+                PosY = 400 - Radius * 2;
+                YSpeed *= -1;
+            }
+            else if (tmp_y <= 0)
+            {
+                PosY = 0;
+                YSpeed *= -1;
+            }
+            else
+            {
+                PosY = PosY + YSpeed;
+            }
         }
 
         public double PosX
@@ -73,6 +99,18 @@ namespace Logic
         {
             get => pos_y;
             set => pos_y = value;
+        }
+
+        public double XSpeed
+        {
+            get => this.speed_x;
+            set => this.speed_x = value;
+        }
+
+        public double YSpeed
+        {
+            get => this.speed_y;
+            set => this.speed_y = value;
         }
 
         public int Radius
