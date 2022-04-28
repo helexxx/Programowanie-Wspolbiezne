@@ -13,19 +13,6 @@ namespace Logic
         private double speed_y;
         private bool alive;
 
-       internal Ball(Box box)
-        {
-            Random random = new Random();
-
-            this.rad_r = 3;
-
-            this.pos_x = random.Next(0, box.Width - this.rad_r);
-            this.pos_y = random.Next(0, box.Height - this.rad_r);
-            this.speed_x = (double)6;
-            this.speed_y = (double)6;
-
-            alive = true;
-        }
         internal Ball(double x, double y, int radius)
         {
             pos_x = x;
