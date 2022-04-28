@@ -26,8 +26,8 @@ namespace Logic.LogicTest
             }
         }
 
-        [TestMethod]
-        public void MovementTest()
+      /*  [TestMethod]
+        public void StartMovementTest()
         {
 
             LogicAPI LogicApi = LogicAPI.CreateAPI();
@@ -42,6 +42,28 @@ namespace Logic.LogicTest
             Assert.AreNotEqual(box.Balls[0].PosX, tmp_x);
             Assert.AreNotEqual(box.Balls[0].PosY, tmp_y);
 
+        }*/
+
+        [TestMethod]
+        public void StartStopMovementTest()
+        {
+
+            LogicAPI LogicApi = LogicAPI.CreateAPI();
+            Box box = LogicApi.CreateBox();
+            LogicApi.CreateBalls(3, 5, box);
+
+
+            LogicApi.StartSimulation(box);
+            foreach (Ball ball in box.Balls)
+            {
+                Assert.AreEqual(true,ball.Alive);
+            }
+
+            LogicApi.StopSimulation(box);
+            foreach (Ball ball in box.Balls)
+            {
+                Assert.AreEqual(false, ball.Alive);
+            }
         }
     }
 
