@@ -16,8 +16,8 @@ namespace Logic.LogicTest
             foreach (Ball ball in box.Balls)
             {
                 Assert.AreEqual(5, ball.rad_r);
-                Assert.IsTrue(ball.PosX > 0 && ball.PosX < box.Height - ball.Radius);
-                Assert.IsTrue(ball.PosY > 0 && ball.PosY < box.Width - ball.Radius);
+                Assert.IsTrue(ball.PosX >= 0 && ball.PosX <= box.Height - ball.Radius);
+                Assert.IsTrue(ball.PosY >= 0 && ball.PosY <= box.Width - ball.Radius);
             }
         }
 
