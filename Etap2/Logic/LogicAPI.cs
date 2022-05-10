@@ -15,12 +15,5 @@ namespace Logic
             return new Box(dataAbstractAPI);
         }
 
-        public abstract ObservableCollection<Ball> Balls { get; }
-
-        public abstract void CreateBalls(int count, int radius);
-        public abstract void StartSimulation();
-
-        public abstract void StopSimulation();
-
     }
 }
