@@ -1,5 +1,4 @@
-﻿using MainWindowViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,21 +13,19 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace View
+namespace Presentation.View
 {
     /// <summary>
-    /// Logika interakcji dla klasy MainWindow.xaml
+    /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new MainWindowViewModel.MainWindowViewModel();
-
             Task.Run(async () =>
             {
-                while(true)
+                while (true)
                 {
                     Dispatcher.Invoke(() => itemss.Items.Refresh());
                     await Task.Delay(20);
@@ -36,10 +33,14 @@ namespace View
             });
         }
 
-        private void ChangedTextBox(object sender, TextChangedEventArgs e)
+        private void StartSimulationButton_Click(object sender, RoutedEventArgs e)
         {
 
         }
 
+        private void BallsNumberTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

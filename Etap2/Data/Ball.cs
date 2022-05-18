@@ -1,130 +1,52 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Numerics;
+using System.Text;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace Data
 {
-    public class Ball : INotifyPropertyChanged
+    public interface MyDataBall
     {
-        public double pos_x;
-        public double pos_y;
-        public int rad_r;
-        private double speed_x;
-        private double speed_y;
-        private bool alive;
+        public int id { get; }
+        public Vector2 pos { get; }
+        public float radius { get; }
+        public float mass { get; }
+        public Vector2 direction { get; set; }
+        public void MoveBall();
+        public event EventHandler<BallEventArgs>? Moved;
+    }
 
-        internal Ball(double x, double y, int radius)
+    public class Ball : MyDataBall
+    {
+        public int id { get; }
+        public Vector2 pos { get; private set; }
+        public float radius { get; }
+        public float mass { get; }
+        public Vector2 direction { get; set; }
+        public event EventHandler<BallEventArgs>? Moved;
+
+        public Ball(int id, Vector2 position, float radius, float mass, Vector2 direction)
         {
-            pos_x = x;
-            pos_y = y;
-            rad_r = radius;
-            this.speed_x = (double)4;
-            this.speed_y = (double)4;
-
-            alive = true;
+            this.id = id;
+            this.pos = position;
+            this.radius = radius;
+            this.mass = mass;
+            this.direction = direction;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        internal void MoveBall(int maxBorderX,int maxBorderY)
+        public async void MoveBall()
         {
-            double tmp_x, tmp_y;
-
-            tmp_x = PosX + XSpeed;
-            tmp_y = PosY + YSpeed;
-            this.CheckX(tmp_x);
-            this.CheckY(tmp_y);
-
-            RaisePropertyChanged(nameof(PosX));
-            RaisePropertyChanged(nameof(PosY));
-
-        }
-
-        public void CheckX(double tmp_x)
-        {
-            if (tmp_x >= 400 - Radius * 2)
+            while (true)
             {
-                PosX = 400 - Radius * 2;
-                XSpeed *= -1;
-            }
-            else if (tmp_x <= 0)
-            {
-                PosX = 0;
-                XSpeed *= -1;
-            }
-            else
-            {
-                PosX = PosX + XSpeed;
+                this.pos += direction;
+                var args = new BallEventArgs(this);
+                Moved?.Invoke(this, args);
+                await Task.Delay(1);
             }
         }
-
-        public void CheckY(double tmp_y)
-        {
-            if (tmp_y + Radius * 2 >= 400)
-            {
-                PosY = 400 - Radius * 2;
-                YSpeed *= -1;
-            }
-            else if (tmp_y <= 0)
-            {
-                PosY = 0;
-                YSpeed *= -1;
-            }
-            else
-            {
-                PosY = PosY + YSpeed;
-            }
-        }
-
-        public double PosX
-        {
-            get => pos_x;
-            set => pos_x = value;
-        }
-
-        public double PosY
-        {
-            get => pos_y;
-            set => pos_y = value;
-        }
-
-        public double XSpeed
-        {
-            get => this.speed_x;
-            set => this.speed_x = value;
-        }
-
-        public double YSpeed
-        {
-            get => this.speed_y;
-            set => this.speed_y = value;
-        }
-
-        public int Radius
-        {
-            get => rad_r;
-            set
-            {
-                if (value > 0)
-                {
-                    rad_r = value;
-                }
-
-                else
-                {
-                    throw new System.ArgumentException();
-                }
-
-            }
-        }
-
-        public bool Alive { get => alive; set => alive = value; }
-
-        protected virtual void RaisePropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        //  public Action<object, PropertyChangedEventArgs> PropertyChanged { get; set; }
     }
 }
