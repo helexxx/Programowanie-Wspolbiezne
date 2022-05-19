@@ -17,13 +17,13 @@ namespace LogicTests
             dataApi = new DataApi(new Vector2(800, 500));
             abstractLogic = LogicAbstractApi.CreateApi(new Vector2(800, 500));
             logic = new LogicApi(dataApi);
-            logic.CreateBalls(10);
+            logic.CreateBalls(13);
         }
 
         [Test]
         public void CreateApiTest()
         {
-            Assert.AreEqual(10, dataApi.GetBalls().Count);
+            Assert.AreEqual(13, dataApi.GetBalls().Count);
             logic.StartSimulation();
         }
 

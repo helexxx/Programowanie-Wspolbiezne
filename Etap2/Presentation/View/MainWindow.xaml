@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Presentation.View"
         xmlns:vm="clr-namespace:Presentation.ViewModel"
         mc:Ignorable="d"
-        Title="MyBalls" 
+        Title="Bouncing Balls" 
         Height="600" 
         Width="1000"
         Background="Black"
