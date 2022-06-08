@@ -10,7 +10,7 @@ using System.Runtime.Serialization;
 
 namespace Data
 {
-    public interface MyDataBall : ISerializable
+    public interface MyDataBall 
     {
         public int id { get; }
         public Vector2 pos { get; }
@@ -48,15 +48,6 @@ namespace Data
                 Moved?.Invoke(this, args);
                 await Task.Delay(1);
             }
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            info.AddValue("ID:", id);
-            info.AddValue("Radius:", radius);
-            info.AddValue("Mass:", mass);
-            info.AddValue("Position:", pos);
-            info.AddValue("Direction:", direction);
         }
     }
 }

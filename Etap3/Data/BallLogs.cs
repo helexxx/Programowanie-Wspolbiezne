@@ -49,7 +49,7 @@ namespace Data
 
                 if (logTask == null || logTask.IsCompleted)
                 {
-                    logTask = Task.Factory.StartNew(this.LogToFile);
+                   // logTask = Task.Factory.StartNew(this.LogToFile);
                 }
             }
             finally
@@ -58,32 +58,5 @@ namespace Data
             }
         }
 
-        private Mutex fileMutex = new Mutex();
-
-        private async Task LogToFile()
-        {
-            while (ballQueue.TryDequeue(out JObject ball))
-            {
-                dataArray.Add(ball);
-            }
-
-            string output = JsonConvert.SerializeObject(dataArray);
-
-            fileMutex.WaitOne();
-            try
-            {
-                File.WriteAllText(logPath, output);
-            }
-            finally
-            {
-                fileMutex.ReleaseMutex();
-            }
-        }
-
-        ~BallLogs()
-        {
-            fileMutex.WaitOne();
-            fileMutex.ReleaseMutex();
-        }
     }
 }
