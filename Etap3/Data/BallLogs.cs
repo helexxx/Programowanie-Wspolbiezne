@@ -35,7 +35,8 @@ namespace Data
             catch (JsonReaderException) { }
 
             dataArray = new JArray();
-            File.Create(logPath);
+           System.IO.FileStream myFile =  File.Create(logPath);
+            myFile.Close();
         }
 
         public void AddToLogQueue(MyDataBall ball)

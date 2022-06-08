@@ -5,12 +5,12 @@ using Data;
 
 namespace LogicTests
 {
-    public class LogicApiTest
+   public class LogicApiTest
     {
         DataApi dataApi;
         LogicAbstractApi abstractLogic;
         LogicApi logic;
-
+        
         [SetUp]
         public void Setup()
         {
