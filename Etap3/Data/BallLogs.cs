@@ -21,7 +21,7 @@ namespace Data
 
         public BallLogs()
         {
-            string path = "C:\\Users\\helex\\Desktop\\LogsBalls";
+            string path = Path.GetTempPath();
             logPath = path + "LogsBalls.json";
             try
             {
@@ -35,7 +35,7 @@ namespace Data
             catch (JsonReaderException) { }
 
             dataArray = new JArray();
-           System.IO.FileStream myFile =  File.Create(logPath);
+            System.IO.FileStream myFile =  File.Create(logPath);
             myFile.Close();
         }
 
